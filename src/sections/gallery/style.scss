@@ -1,0 +1,49 @@
+.c-gallery {
+  &__wrapper {
+    height: 250px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    &:hover {
+      .c-gallery__title {
+        transform: translateY(0);
+      }
+    }
+  }
+  &__total {
+    text-align: right;
+  }
+  &__title {
+    position: absolute;
+    width: 100%;
+    font-weight: 700;
+    background: white;
+    transform: translateY(100%);
+    bottom: 0;
+    transition: transform .3s;
+  }
+  &__photo {
+    height: 250px;
+    img {
+      padding: 5px 0;
+      width: 100%;
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+  &__header {
+    font-size: 46px;
+  }
+  &__loader {
+    height: 180px;
+    position: relative;
+    &__spinner {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      width: 45px;
+      height: auto;
+    }
+  }
+}

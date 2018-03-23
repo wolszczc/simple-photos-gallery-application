@@ -1,0 +1,52 @@
+.c-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(#000, .6);
+  overflow: auto;
+  z-index: 2;
+  &__description {
+    margin: 20px 10px 10px;
+    &__context {
+      margin-bottom: 10px;
+    }
+    &__title {
+      font-weight: 700;
+      font-size: 13px;
+    }
+  }
+  &__close {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    z-index: 1;
+    &__btn {
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      cursor: pointer;
+      transition: transform .3s;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+  &__wrapper {
+    z-index: 2;
+    text-align: center;
+    background: #fff;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 5% 0;
+    padding: 20px;
+    max-width: 90vw;
+    img {
+      width: 100%;
+    }
+  }
+}
