@@ -36,6 +36,7 @@
   import ImageLoader from '../../components/imageLoader'
   import Modal from '../../components/modal'
   import throttle from 'lodash/throttle'
+  import AuthorBus from '../../buses/author'
 
   export default {
     components: {
@@ -70,6 +71,9 @@
       }
     },
     methods: {
+      getAuthor () {
+        AuthorBus.$emit('get-author')
+      },
       addDownloadPhotosEvent () {
         const eventHandler = throttle(() => {
           if (this.isEndOfPage()) {
@@ -106,6 +110,7 @@
         this.modal.title = photo.title || 'No title.'
         this.modal.description = photo.description._content || 'No description.'
         this.modal.isHidden = !this.modal.isHidden
+        this.getAuthor()
       },
       toggleSpinner (isLoading) {
         this.isLoading = isLoading

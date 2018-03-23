@@ -7,7 +7,8 @@ Vue.use(Vuex)
 
 // const apiKey = 'c52a3fa75dae2db2e42d116eb4ceaf71'
 const apiKey = 'c52a3fa75dae2db2e42d116eb4ceaf71'
-const apiUrl = `https://api.flickr.com/services/rest/?api_key=${apiKey}&format=json&nojsoncallback=1`
+const defaultOptions = `?api_key=${apiKey}&format=json&nojsoncallback=1&safe_search=1`
+const apiUrl = `https://api.flickr.com/services/rest/${defaultOptions}`
 // const secret = '3ba73a30b2c47274'
 
 export default new Vuex.Store({
@@ -17,11 +18,15 @@ export default new Vuex.Store({
     page: 1,
     pages: 0,
     total: 0,
-    errors: {}
+    errors: {},
+    author: ''
   },
   mutations: {
     SET_PHOTOS (state, photos) {
       state.photos = photos
+    },
+    SET_AUTHOR (state, author) {
+      state.author = author
     },
     SET_ERRORS (state, errors) {
       state.errors = errors
@@ -41,6 +46,9 @@ export default new Vuex.Store({
     GET_GALLERY (state) {
       return state.gallery
     },
+    GET_AUTHOR (state) {
+      return state.author
+    },
     GET_ERRORS (state) {
       return state.errors
     },
@@ -53,7 +61,7 @@ export default new Vuex.Store({
   },
   actions: {
     GET_PHOTOS ({commit, getters}, {perPage, text, extras}) {
-      return axios.get(`${apiUrl}&method=flickr.photos.search&page=${getters.GET_PAGE_NUMBER}&per_page=${perPage}&text=${text}&extras=${extras}`)
+      return axios.get(`${apiUrl}&method=flickr.photos.search&page=${getters.GET_PAGE_NUMBER}&per_page=${perPage}&text=${text}&extras=${extras}tag_mode=dogs`)
         .then(res => {
           if (res.data.stat === 'ok') {
             const photos = mapPhotos(res)
@@ -63,6 +71,16 @@ export default new Vuex.Store({
             })
             commit('SET_PHOTOS', photos)
             commit('SET_GALLERY', photos)
+          } else {
+            commit('SET_ERRORS', res.data)
+          }
+        })
+    },
+    GET_AUTHOR ({commit}, id) {
+      return axios.get(`${apiUrl}&method=flickr.people.getInfo&user_id=${id}`)
+        .then(res => {
+          if (res.data.stat === 'ok') {
+            commit('SET_AUTHOR', res.data.person.username._content)
           } else {
             commit('SET_ERRORS', res.data)
           }

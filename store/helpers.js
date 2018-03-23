@@ -5,6 +5,6 @@ export default function mapPhotos (res) {
     title: photo.title,
     date: photo.datetaken,
     description: photo.description,
-    ownerName: photo.ownername
+    ownerName: photo.owner
   })))
 }
