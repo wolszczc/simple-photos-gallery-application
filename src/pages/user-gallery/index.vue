@@ -30,7 +30,7 @@
     data () {
       return {
         searchConfig: {
-          perPage: 500,
+          perPage: 100,
           text: '',
           extras: '',
           userId: this.$route.params.id
