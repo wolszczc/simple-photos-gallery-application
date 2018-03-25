@@ -31,7 +31,7 @@
     },
     mounted () {
       this.$refs.image.onload = () => {
-        this.isLoading = !this.isLoading
+        this.isLoading = false
       }
     }
   }

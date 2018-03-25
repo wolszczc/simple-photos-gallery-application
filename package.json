@@ -15,7 +15,8 @@
     "normalize-scss": "^7.0.1",
     "sass-loader": "^6.0.7",
     "vue": "^2.5.13",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.6",

@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import createPersistedState from 'vuex-persistedstate'
 import mapPhotos from './helpers'
 
 Vue.use(Vuex)
 
-// const apiKey = 'c52a3fa75dae2db2e42d116eb4ceaf71'
 const apiKey = 'c52a3fa75dae2db2e42d116eb4ceaf71'
 const defaultOptions = `?api_key=${apiKey}&format=json&nojsoncallback=1&safe_search=1`
 const apiUrl = `https://api.flickr.com/services/rest/${defaultOptions}`
-// const secret = '3ba73a30b2c47274'
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     photos: [],
     gallery: [],
@@ -34,6 +34,10 @@ export default new Vuex.Store({
     SET_GALLERY (state, photos) {
       state.gallery = [...state.gallery, ...photos]
     },
+    INIT_GALLERY (state) {
+      state.gallery = state.photos
+      state.page = 0
+    },
     SET_PAGINATION (state, {pages, total}) {
       state.pages = pages
       state.total = total
@@ -43,6 +47,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    GET_PHOTOS (state) {
+      return state.photos
+    },
     GET_GALLERY (state) {
       return state.gallery
     },
@@ -70,7 +77,6 @@ export default new Vuex.Store({
               total: res.data.photos.total
             })
             commit('SET_PHOTOS', photos)
-            commit('SET_GALLERY', photos)
           } else {
             commit('SET_ERRORS', res.data)
           }

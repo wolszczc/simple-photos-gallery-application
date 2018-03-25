@@ -58,6 +58,9 @@
     },
     created () {
       this.$store.dispatch('GET_PHOTOS', this.searchConfig)
+        .then(() => {
+          this.$store.commit('INIT_GALLERY')
+        })
     },
     mounted () {
       this.addDownloadPhotosEvent()
@@ -92,6 +95,8 @@
         this.$store.commit('INCREMENT_PAGE')
         this.$store.dispatch('GET_PHOTOS', this.searchConfig)
           .then(() => {
+            const photos = this.$store.getters.GET_PHOTOS
+            this.$store.commit('SET_GALLERY', photos)
             this.toggleSpinner(false)
             this.addDownloadPhotosEvent()
           })
