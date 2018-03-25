@@ -1,6 +1,6 @@
-@import '../../../node_modules/foundation-sites/scss/util/util';
-@import '../../../node_modules/foundation-sites/scss/global';
-@import '../../../node_modules/normalize-scss/sass/normalize';
+@import '~foundation-sites/scss/util/util';
+@import '~foundation-sites/scss/global';
+@import '~normalize-scss/sass/normalize';
 
 $global-width: rem-calc(1266);
 $grid-column-count: 12;
@@ -9,8 +9,8 @@ $grid-column-gutter: (
   medium: 10px,
 );
 
-@import '../../../node_modules/foundation-sites/scss/grid/grid';
-@import '../../../node_modules/foundation-sites/scss/components/flex';
+@import '~foundation-sites/scss/grid/grid';
+@import '~foundation-sites/scss/components/flex';
 
 $global-flexbox: true;
 
@@ -32,4 +32,9 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.c-app {
+  overflow-x: hidden;
+}
+
 @import 'typography';
+@import 'transitions';

@@ -21,7 +21,7 @@
              alt="Loading...">
         <div v-if="!isLoading"
              class="c-modal__description__context">
-          {{author}}
+          <router-link :to="{name: 'user-gallery', params: { id: modal.author }}">{{author}}</router-link>
         </div>
         <div class="c-modal__description__title">
           Date:
@@ -41,8 +41,8 @@
 </template>
 
 <script>
-  import ImageLoader from '../../components/imageLoader'
-  import AuthorBus from '../../buses/author'
+  import ImageLoader from '@/components/imageLoader'
+  import AuthorBus from '@/buses/author'
 
   export default {
     components: {

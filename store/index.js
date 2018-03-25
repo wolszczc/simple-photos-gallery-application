@@ -15,6 +15,7 @@ export default new Vuex.Store({
   state: {
     photos: [],
     gallery: [],
+    userGallery: [],
     page: 1,
     pages: 0,
     total: 0,
@@ -36,7 +37,11 @@ export default new Vuex.Store({
     },
     INIT_GALLERY (state) {
       state.gallery = state.photos
-      state.page = 0
+      state.page = 1
+    },
+    INIT_USER_GALLERY (state) {
+      state.userGallery = state.photos
+      state.page = 1
     },
     SET_PAGINATION (state, {pages, total}) {
       state.pages = pages
@@ -44,6 +49,9 @@ export default new Vuex.Store({
     },
     INCREMENT_PAGE (state) {
       state.page++
+    },
+    RESET_ERRORS (state) {
+      state.errors = {}
     }
   },
   getters: {
@@ -52,6 +60,9 @@ export default new Vuex.Store({
     },
     GET_GALLERY (state) {
       return state.gallery
+    },
+    GET_USER_GALLERY (state) {
+      return state.userGallery
     },
     GET_AUTHOR (state) {
       return state.author
@@ -67,8 +78,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    GET_PHOTOS ({commit, getters}, {perPage, text, extras}) {
-      return axios.get(`${apiUrl}&method=flickr.photos.search&page=${getters.GET_PAGE_NUMBER}&per_page=${perPage}&text=${text}&extras=${extras}tag_mode=dogs`)
+    GET_PHOTOS ({commit, getters}, {perPage, text, extras, userId}) {
+      return axios.get(`${apiUrl}&method=flickr.photos.search&page=${getters.GET_PAGE_NUMBER}&per_page=${perPage}&text=${text}&extras=${extras}tag_mode=dogs&user_id=${userId}`)
         .then(res => {
           if (res.data.stat === 'ok') {
             const photos = mapPhotos(res)
@@ -76,6 +87,7 @@ export default new Vuex.Store({
               pages: res.data.photos.pages,
               total: res.data.photos.total
             })
+            commit('RESET_ERRORS')
             commit('SET_PHOTOS', photos)
           } else {
             commit('SET_ERRORS', res.data)
@@ -86,6 +98,7 @@ export default new Vuex.Store({
       return axios.get(`${apiUrl}&method=flickr.people.getInfo&user_id=${id}`)
         .then(res => {
           if (res.data.stat === 'ok') {
+            commit('RESET_ERRORS')
             commit('SET_AUTHOR', res.data.person.username._content)
           } else {
             commit('SET_ERRORS', res.data)

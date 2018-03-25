@@ -7,7 +7,7 @@
          :alt="alt"/>
     <img v-if="isLoading"
          class="c-loader__spinner"
-         src="../../assets/img/loading.gif"/>
+         src="@/assets/img/loading.gif"/>
   </div>
 </template>
 

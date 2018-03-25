@@ -26,17 +26,17 @@
       <div class="column small-12 c-gallery__loader">
         <img v-if="isLoading"
              class="c-gallery__loader__spinner"
-             src="../../assets/img/loading.gif"/>
+             src="@/assets/img/loading.gif"/>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-  import ImageLoader from '../../components/imageLoader'
-  import Modal from '../../components/modal'
+  import ImageLoader from '@/components/imageLoader'
+  import Modal from '@/components/modal'
   import throttle from 'lodash/throttle'
-  import AuthorBus from '../../buses/author'
+  import AuthorBus from '@/buses/author'
 
   export default {
     components: {
@@ -51,7 +51,8 @@
         searchConfig: {
           perPage: 100,
           text: 'dog',
-          extras: 'description, date_taken, owner_name'
+          extras: 'description, date_taken, owner_name',
+          userId: ''
         },
         isLoading: false
       }

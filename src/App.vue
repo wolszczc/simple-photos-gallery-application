@@ -1,17 +1,19 @@
 <template>
   <div id="app">
     <errors/>
-    <gallery/>
+    <div class="c-app">
+      <transition name="slide-fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
-  import Gallery from './sections/gallery'
-  import Errors from './components/errors'
+  import Errors from '@/components/errors'
 
   export default {
     components: {
-      Gallery,
       Errors
     }
   }
